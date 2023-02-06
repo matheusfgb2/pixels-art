@@ -67,14 +67,22 @@ const boardRow = (size) => {
     pixel.style.backgroundColor = 'white';
     row.appendChild(pixel);
     pixelNumber += 1;
-  };
+  }
 };
 // Criando colunas
-boardRow(5);
-boardRow(5);
-boardRow(5);
-boardRow(5);
-boardRow(5);
+// Requisito 15
+if (localStorage.getItem('boardSize') !== null) {
+  const boardSize = localStorage.getItem('boardSize');
+  console.log(boardSize.length);
+  for (let index = 0; index < boardSize; index += 1) {
+    boardRow(boardSize);
+  }
+} else {
+  // Requisito 6
+  for (let index = 0; index < 5; index += 1) {
+    boardRow(5);
+  }
+}
 // Capturando class pixel elements
 const pixelList = document.getElementsByClassName('pixel');
 // Criando função para selecionar elemento da paleta de cores
@@ -86,7 +94,7 @@ for (let index = 0; index < colorBoxes.length; index += 1) {
     // Adicionando classe selected ao elemento clicado
     event.target.classList.add('selected');
   });
-};
+}
 
 // Criando objeto para estocar cores no localStorage, ou repopulando se já houverem pixels estocados.
 const createPixelColorsObj = () => {
@@ -152,6 +160,7 @@ const deleteOldBoard = () => {
 // Capturando elementos que serão usados
 const sizeInput = document.getElementById('board-size');
 const sizeButton = document.getElementById('generate-board');
+
 sizeButton.addEventListener('click', () => {
   if (sizeInput.value === '') {
     return alert('Board inválido!');
@@ -167,5 +176,8 @@ sizeButton.addEventListener('click', () => {
   for (let index = 0; index < inputNumber; index += 1) {
     boardRow(inputNumber);
   }
+  localStorage.removeItem('pixelBoard');
+  // Requisito 15
+  localStorage.setItem('boardSize', inputNumber);
   ChangePixelCollor();
 });
