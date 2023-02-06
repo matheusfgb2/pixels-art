@@ -32,11 +32,11 @@ const localStorageColorsPallete = () => {
   for (let index = 1; index < colorBoxes.length; index += 1) {
     const boxName = colorBoxes[index].id;
     colorBoxes[index].style.backgroundColor = palleteColorsFromStorage[boxName];
-  };
+  }
 };
 if (palleteColorsFromStorage !== null) {
   localStorageColorsPallete();
-};
+}
 //  Adicionando quadro com 25px:
 // Capturando seção do quadro de pixels
 const pixelBoard = document.getElementById('pixel-board');
@@ -150,13 +150,13 @@ if (pixelColorsFromStorage !== null) {
 };
 // Fazendo com que o valor do input seja transformado no tamanho dos pixels ao clicar no botão VQV
 inputButton.addEventListener('click', () => {
-  //Colocando valor do input numa variável
+  // Colocando valor do input numa variável
   const input = inputBoardSize.value;
-  //Alerta p/ input vazio
+  // Alerta p/ input vazio
   if (input === '') {
     return alert('Board inválido!');
   };
-  //Iterando pixelList e modificando valores
+  // Iterando pixelList e modificando valores
   for (pixel of pixelList) {
     if (parseInt(input) < 5) {
       pixel.style.height = '5px';
@@ -169,9 +169,9 @@ inputButton.addEventListener('click', () => {
       pixel.style.width = `${input}px`;
     }
   };
-  //Resetando cores dos pixels
+  // Resetando cores dos pixels
   resetStoragePixelColors();
-  //Estocando valor do input no localStorage
+  // Estocando valor do input no localStorage
   localStorage.setItem('boardSize', `${input}px`);
 });
 //  Atribuindo boardSize, guardado no localStorage, aos pixels

@@ -2,7 +2,8 @@
   text-align: center;
 }
 .color {
-  padding: 55px;
+  width: 55px;
+  height: 55px;
   display: inline-block;
   border: 1px solid black;
 }
@@ -20,9 +21,6 @@
   border: 1px solid black;
   margin-left: 2px;
   margin-right: 2px;
-}
-.selected {
-  border: 3px inset red;
 }
 #clear-board {
   margin-bottom: 10px;
