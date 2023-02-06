@@ -104,17 +104,20 @@ const pixelColorsToLocalStorage = (pixel) => {
 };
 //  Criando função para aplicar cor selecionada ao elemento do quadro de pixels
 // Event listener em todos os pixels
-for (let index = 0; index < pixelList.length; index += 1) {
-  pixelList[index].addEventListener('click', (event) => {
-    const pixel = event.target;
-    // Capturando cor do elemento da paleta de cores selecionado
-    const colorOfSelected = document.querySelector('.selected').style.backgroundColor;
-    // Adicionando a cor ao pixel selecionado
-    pixel.style.backgroundColor = colorOfSelected;
-    // Estocando cor no localStorage
-    pixelColorsToLocalStorage(pixel);
-  });
-}
+const ChangePixelCollor = () => {
+  for (let index = 0; index < pixelList.length; index += 1) {
+    pixelList[index].addEventListener('click', (event) => {
+      const pixel = event.target;
+      // Capturando cor do elemento da paleta de cores selecionado
+      const colorOfSelected = document.querySelector('.selected').style.backgroundColor;
+      // Adicionando a cor ao pixel selecionado
+      pixel.style.backgroundColor = colorOfSelected;
+      // Estocando cor no localStorage
+      pixelColorsToLocalStorage(pixel);
+    });
+  }
+};
+ChangePixelCollor();
 // Recuperando obj da localStorage
 const pixelColorsFromStorage = JSON.parse(localStorage.getItem('pixelBoard'));
 //  Função para resetar as cores dos pixels no storage
@@ -164,4 +167,5 @@ sizeButton.addEventListener('click', () => {
   for (let index = 0; index < inputNumber; index += 1) {
     boardRow(inputNumber);
   }
+  ChangePixelCollor();
 });
