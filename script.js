@@ -1,4 +1,3 @@
-const main = document.getElementsByTagName('main')[0];
 //  Função para gerar cor aleatória
 const generateRandomColor = () => {
   const rRandom = Math.floor(Math.random() * (255 - 0) + 0);
@@ -50,21 +49,18 @@ if (paletteColorsFromStorage !== null) {
 //  Adicionando quadro com 25px:
 // Capturando elementos que serão usados
 const pixelBoard = document.getElementById('pixel-board');
-const inputBoardSize = document.getElementById('board-size');
-const inputButton = document.getElementById('generate-board');
 const resetButton = document.getElementById('clear-board');
 
 // Estocando valor para atribuir a id dos pixels;
 let pixelNumber = 0;
 // Criando função para preencher linhas do quadro de pixels
-const boardRow = (idName) => {
+const boardRow = (size) => {
   // Criando linha
   const row = document.createElement('section');
-  row.id = idName;
   row.className = 'row';
   pixelBoard.appendChild(row);
   // Preenchendo linha
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < size; index += 1) {
     const pixel = document.createElement('div');
     pixel.className = 'pixel';
     pixel.id = `pixel-${pixelNumber}`;
@@ -74,11 +70,11 @@ const boardRow = (idName) => {
   };
 };
 // Criando colunas
-boardRow('box-first-row');
-boardRow('box-second-row');
-boardRow('box-third-row');
-boardRow('box-fourth-row');
-boardRow('box-fifth-row');
+boardRow(5);
+boardRow(5);
+boardRow(5);
+boardRow(5);
+boardRow(5);
 // Capturando class pixel elements
 const pixelList = document.getElementsByClassName('pixel');
 // Criando função para selecionar elemento da paleta de cores
@@ -144,3 +140,23 @@ if (pixelColorsFromStorage !== null) {
   localStoragePixelsColors();
 }
 // Fazendo com que o valor do input seja transformado no tamanho dos pixels ao clicar no botão VQV
+const rows = document.getElementsByClassName('row');
+const deleteOldBoard = () => {
+  for (let index = rows.length - 1; index >= 0; index -= 1) {
+    rows[index].remove();
+  }
+};
+// Capturando elementos que serão usados
+const sizeInput = document.getElementById('board-size');
+const sizeButton = document.getElementById('generate-board');
+sizeButton.addEventListener('click', () => {
+  if (sizeInput.value === '') {
+    return alert('Board inválido!');
+  }
+  const inputNumber = +sizeInput.value;
+  pixelNumber = 0;
+  deleteOldBoard();
+  for (let index = 0; index < inputNumber; index += 1) {
+    boardRow(inputNumber);
+  }
+});
