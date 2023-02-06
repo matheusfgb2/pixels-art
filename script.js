@@ -31,7 +31,7 @@ const changeColor = () => {
     paletteColorsStock[boxName] = color;
     // estocando valores no localStorage
     localStorage.setItem('colorPalette', JSON.stringify(paletteColorsStock));
-  };
+  }
 };
 button.addEventListener('click', changeColor);
 // Recuperando obj da localStorage
