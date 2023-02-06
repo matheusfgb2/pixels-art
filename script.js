@@ -10,7 +10,17 @@ const generateRandomColor = () => {
 const colorBoxes = document.getElementsByClassName('color');
 const button = document.getElementById('button-random-color');
 // Criando objeto para estocar cores da paleta no localStorage
-const palleteColorsStock = {};
+
+// Criando objeto para estocar cores no localStorage, ou repopulando se já houverem pixels estocados.
+const createPaletteColorsObj = () => {
+  if (localStorage.getItem('colorPalette') === null) {
+    return {};
+  }
+  return JSON.parse(localStorage.getItem('colorPalette'));
+};
+
+const paletteColorsStock = createPaletteColorsObj();
+
 //  Adicionando event listener ao botão
 const changeColor = () => {
   for (let index = 1; index < colorBoxes.length; index += 1) {
@@ -19,23 +29,23 @@ const changeColor = () => {
     colorBoxes[index].style.backgroundColor = generateRandomColor();
     const color = colorBoxes[index].style.backgroundColor;
     // Estocando valores no objeto
-    palleteColorsStock[boxName] = color;
+    paletteColorsStock[boxName] = color;
     // estocando valores no localStorage
-    localStorage.setItem('colorPallete', JSON.stringify(palleteColorsStock));
+    localStorage.setItem('colorPalette', JSON.stringify(paletteColorsStock));
   };
 };
 button.addEventListener('click', changeColor);
 // Recuperando obj da localStorage
-const palleteColorsFromStorage = JSON.parse(localStorage.getItem('colorPallete'));
+const paletteColorsFromStorage = JSON.parse(localStorage.getItem('colorPalette'));
 //  Atribuindo palleteColorsStock, guardado no localStorage, a paleta de cores
-const localStorageColorsPallete = () => {
+const localStorageColorsPalette = () => {
   for (let index = 1; index < colorBoxes.length; index += 1) {
     const boxName = colorBoxes[index].id;
-    colorBoxes[index].style.backgroundColor = palleteColorsFromStorage[boxName];
+    colorBoxes[index].style.backgroundColor = paletteColorsFromStorage[boxName];
   }
 };
-if (palleteColorsFromStorage !== null) {
-  localStorageColorsPallete();
+if (paletteColorsFromStorage !== null) {
+  localStorageColorsPalette();
 }
 //  Adicionando quadro com 25px:
 // Capturando seção do quadro de pixels
