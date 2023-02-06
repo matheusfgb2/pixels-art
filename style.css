@@ -1,0 +1,29 @@
+* {
+  text-align: center;
+}
+.color {
+  padding: 55px;
+  display: inline-block;
+  border: 1px solid black;
+}
+#button-random-color {
+  font-size: 17px;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+#pixel-board .pixel{
+  display: inline-block;
+}
+.pixel {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.selected {
+  border: 3px inset red;
+}
+#clear-board {
+  margin-bottom: 10px;
+}
