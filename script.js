@@ -50,7 +50,6 @@ if (paletteColorsFromStorage !== null) {
 //  Adicionando quadro com 25px:
 // Capturando elementos que serão usados
 const pixelBoard = document.getElementById('pixel-board');
-// const inputSection = document.getElementById('input-section');
 const inputBoardSize = document.getElementById('board-size');
 const inputButton = document.getElementById('generate-board');
 const resetButton = document.getElementById('clear-board');
@@ -69,7 +68,7 @@ const boardRow = (idName) => {
     const pixel = document.createElement('div');
     pixel.className = 'pixel';
     pixel.id = `pixel-${pixelNumber}`;
-    pixel.classList.backgroundColor = 'rgb(255, 255, 255)';
+    pixel.style.backgroundColor = 'rgb(255, 255, 255)';
     row.appendChild(pixel);
     pixelNumber += 1;
   };
