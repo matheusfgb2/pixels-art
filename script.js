@@ -68,7 +68,7 @@ const boardRow = (idName) => {
     const pixel = document.createElement('div');
     pixel.className = 'pixel';
     pixel.id = `pixel-${pixelNumber}`;
-    pixel.style.backgroundColor = 'rgb(255, 255, 255)';
+    pixel.style.backgroundColor = 'white';
     row.appendChild(pixel);
     pixelNumber += 1;
   };
@@ -82,12 +82,12 @@ boardRow('box-fifth-row');
 // Capturando class pixel elements
 const pixelList = document.getElementsByClassName('pixel');
 // Criando função para selecionar elemento da paleta de cores
-for (box of colorBoxes) {
-  box.addEventListener('click', (event) => {
-    //Removendo classe selected anterior
+for (let index = 0; index < colorBoxes.length; index += 1) {
+  colorBoxes[index].addEventListener('click', (event) => {
+    // Removendo classe selected anterior
     const selected = document.querySelector('.selected');
     selected.classList.remove('selected');
-    //Adicionando classe selected ao elemento clicado
+    // Adicionando classe selected ao elemento clicado
     event.target.classList.add('selected');
   });
 };
@@ -101,94 +101,46 @@ const createPixelColorsObj = () => {
 };
 
 let pixelColorsStock = createPixelColorsObj();
+// Função para estocar cor do pixel no localStorage
+const pixelColorsToLocalStorage = (pixel) => {
+  pixelColorsStock[pixel.id] = pixel.style.backgroundColor;
+  localStorage.setItem('pixelBoard', JSON.stringify(pixelColorsStock));
+};
 //  Criando função para aplicar cor selecionada ao elemento do quadro de pixels
 // Event listener em todos os pixels
-for (pixel of pixelList){
-  pixel.addEventListener('click', (event) => {
-    //Capturando cor do elemento da paleta de cores selecionado
+for (let index = 0; index < pixelList.length; index += 1) {
+  pixelList[index].addEventListener('click', (event) => {
+    const pixel = event.target;
+    // Capturando cor do elemento da paleta de cores selecionado
     const colorOfSelected = document.querySelector('.selected').style.backgroundColor;
-    //Adicionando a cor ao pixel selecionado
-    event.target.style.backgroundColor = colorOfSelected;
-    //Atribuindo a id do pixel a uma variavel (para estocar no objeto)
-    const pixelId = event.target.id;
-    //Estocando cor no objeto pixelColorsStock
-    pixelColorsStock[pixelId] = colorOfSelected;
-    //Estocando cor no localStorage
-    localStorage.setItem('pixelBoard', JSON.stringify(pixelColorsStock));
+    // Adicionando a cor ao pixel selecionado
+    pixel.style.backgroundColor = colorOfSelected;
+    // Estocando cor no localStorage
+    pixelColorsToLocalStorage(pixel);
   });
-};
-
+}
 // Recuperando obj da localStorage
 const pixelColorsFromStorage = JSON.parse(localStorage.getItem('pixelBoard'));
 //  Função para resetar as cores dos pixels no storage
 const resetStoragePixelColors = () => {
-  for (pixel of pixelList){
-    pixel.style.backgroundColor = 'rgb(255, 255, 255)';
+  for (let index = 0; index < pixelList.length; index += 1) {
+    pixelList[index].style.backgroundColor = 'white';
     // Resetando localStorage e objeto pixelColorsStock
     localStorage.removeItem('pixelBoard');
     pixelColorsStock = {};
-  };
+  }
 };
 // Event listener para o botão reset resetar as cores
 resetButton.addEventListener('click', resetStoragePixelColors);
 
 //  Atribuindo cores, guardadas no localStorage, aos pixels
 const localStoragePixelsColors = () => {
-  for (index = 0; index < pixelList.length; index += 1) {
+  for (let index = 0; index < pixelList.length; index += 1) {
     const pixelName = pixelList[index].id;
     pixelList[index].style.backgroundColor = pixelColorsFromStorage[pixelName];
-  };
+  }
 };
 if (pixelColorsFromStorage !== null) {
   localStoragePixelsColors();
-};
+}
 // Fazendo com que o valor do input seja transformado no tamanho dos pixels ao clicar no botão VQV
-const rows = document.getElementsByClassName('row');
-
-
-
-
-const changingRowSize = (string) => {
-  for (let index = 0; index < rows.length; index += 1) {
-    rows[index].style.height = string;
-  }
-};
-
-const changingSize = (input) => {
-  for (let index = 0; index < pixelList.length; index += 1) {
-    if (parseInt(input) < 5) {
-      pixelList[index].style.height = '5px';
-      pixelList[index].style.width = '5px';
-      changingRowSize('5px');
-    } else if (parseInt(input) > 50) {
-      pixelList[index].style.height = '50px';
-      pixelList[index].style.width = '50px';
-      changingRowSize('50px');
-    } else {
-      pixelList[index].style.height = `${input}px`;
-      pixelList[index].style.width = `${input}px`;
-      changingRowSize(`${input}px`);
-    }
-  }
-};
-
-inputButton.addEventListener('click', () => {
-  // Colocando valor do input numa variável
-  const input = inputBoardSize.value;
-  // Alerta p/ input vazio
-  if (input === '') {
-    return alert('Board inválido!');
-  };
-  // Iterando pixelList e modificando valores
-  changingSize(input);
-  // Resetando cores dos pixels
-  resetStoragePixelColors();
-  // Estocando valor do input no localStorage
-  localStorage.setItem('boardSize', `${input}px`);
-});
-//  Atribuindo boardSize, guardado no localStorage, aos pixels
-for (let index = 0; index < pixelList.length; index += 1) {
-  pixelList[index].style.height = localStorage.getItem('boardSize');
-  pixelList[index].style.width = localStorage.getItem('boardSize');
-  // row.style.height = localStorage.getItem('boardSize');
-};
