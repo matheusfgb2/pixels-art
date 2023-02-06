@@ -12,15 +12,17 @@
   margin-top: 0;
   margin-bottom: 40px;
 }
+.row {
+  height: 40px;
+  /* width: 40px; */
+}
 #pixel-board .pixel{
   display: inline-block;
 }
 .pixel {
+  border: 1px solid black;
   width: 40px;
   height: 40px;
-  border: 1px solid black;
-  margin-left: 2px;
-  margin-right: 2px;
 }
 #clear-board {
   margin-bottom: 10px;
