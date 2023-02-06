@@ -153,7 +153,12 @@ sizeButton.addEventListener('click', () => {
   if (sizeInput.value === '') {
     return alert('Board inválido!');
   }
-  const inputNumber = +sizeInput.value;
+  let inputNumber = +sizeInput.value;
+  if (inputNumber < 5) {
+    inputNumber = 5;
+  } else if (inputNumber > 50) {
+    inputNumber = 50;
+  }
   pixelNumber = 0;
   deleteOldBoard();
   for (let index = 0; index < inputNumber; index += 1) {
