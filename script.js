@@ -1,8 +1,8 @@
 // Requisito 4
 const generateRandomColor = () => {
-  const rRandom = Math.floor(Math.random() * (255 - 0) + 0);
-  const gRandom = Math.floor(Math.random() * (255 - 0) + 0);
-  const bRandom = Math.floor(Math.random() * (255 - 0) + 0);
+  const rRandom = Math.floor(Math.random() * 255);
+  const gRandom = Math.floor(Math.random() * 255);
+  const bRandom = Math.floor(Math.random() * 255);
   return `rgb(${rRandom}, ${gRandom}, ${bRandom})`;
 };
 
