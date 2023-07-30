@@ -10,8 +10,6 @@ No decorrer do projeto, foram aplicadas diversas habilidades técnicas para o se
 - Manipulação do DOM com JavaScript
 - Estilização de elementos HTML com CSS
 - LocalStorage para armazenamento local
-- Manipulação de eventos
-- Versionamento com Git e GitHub
 
 ## Requisitos Cumpridos
 **OBS: Parte retirada integralmente do README do repositório do projeto da Trybe**
